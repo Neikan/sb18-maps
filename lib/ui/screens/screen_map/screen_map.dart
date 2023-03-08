@@ -16,16 +16,12 @@ import 'package:app_maps/ui/components/ui_loader.dart';
 
 part 'components/ui_arrows.dart';
 part 'components/ui_controls.dart';
+part 'components/ui_map.dart';
 part 'components/ui_slider.dart';
 
-class ScreenMap extends StatefulWidget {
+class ScreenMap extends StatelessWidget {
   const ScreenMap({super.key});
 
-  @override
-  State<ScreenMap> createState() => _ScreenMapState();
-}
-
-class _ScreenMapState extends State<ScreenMap> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocMap>(
@@ -33,19 +29,8 @@ class _ScreenMapState extends State<ScreenMap> {
       child: BlocBuilder<BlocMap, BlocMapState>(
         builder: (context, state) {
           return Scaffold(
-            body: Stack(children: <Widget>[
-              YandexMap(
-                mapType: MapType.map,
-                logoAlignment: const MapAlignment(
-                  horizontal: HorizontalAlignment.left,
-                  vertical: VerticalAlignment.bottom,
-                ),
-                onMapCreated: (YandexMapController yandexMapController) {
-                  context
-                      .read<BlocMap>()
-                      .add(BlocMapEventLoaded(yandexMapController, scaleStart));
-                },
-              ),
+            body: Stack(children: [
+              const _UiMap(),
               state.when(
                 loading: () => const UiLoader(),
                 loaded: (controller, scale) => _UiControls(
