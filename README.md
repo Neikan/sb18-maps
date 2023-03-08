@@ -1,5 +1,11 @@
 <h1 align="center">About</h1>
 
+# Before start
+#### Set map_api_key to MainActivity.kt:
+```sh
+MapKitFactory.setApiKey("YOUR_MAP_API_KEY")
+```
+
 # Run project
 ## - Android, iOS:
 ```sh
