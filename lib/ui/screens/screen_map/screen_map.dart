@@ -24,24 +24,21 @@ class ScreenMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BlocMap>(
-      create: (_) => BlocMap(),
-      child: BlocBuilder<BlocMap, BlocMapState>(
-        builder: (context, state) {
-          return Scaffold(
-            body: Stack(children: [
-              const _UiMap(),
-              state.when(
-                loading: () => const UiLoader(),
-                loaded: (controller, scale) => _UiControls(
-                  controller: controller,
-                  scale: scale,
-                ),
+    return BlocBuilder<BlocMap, BlocMapState>(
+      builder: (_, state) {
+        return Scaffold(
+          body: Stack(children: [
+            const _UiMap(),
+            state.when(
+              loading: () => const UiLoader(),
+              loaded: (controller, scale) => _UiControls(
+                controller: controller,
+                scale: scale,
               ),
-            ]),
-          );
-        },
-      ),
+            ),
+          ]),
+        );
+      },
     );
   }
 }
